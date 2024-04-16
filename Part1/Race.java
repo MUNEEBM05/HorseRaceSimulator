@@ -86,6 +86,34 @@ public class Race
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
                 finished = true;
+                if (raceWonBy(lane1Horse))
+                {
+                    System.out.println("And the winner is: " + lane1Horse.getName());
+                }
+                else if (raceWonBy(lane2Horse))
+                {
+                    System.out.println("And the winner is: " + lane2Horse.getName());
+                }
+                else if (raceWonBy(lane3Horse))
+                {
+                    System.out.println("And the winner is: " + lane3Horse.getName());
+                }
+                else if (raceWonBy(lane1Horse) && raceWonBy(lane2Horse))
+                {
+                    System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName());
+                }
+                else if (raceWonBy(lane1Horse) && raceWonBy(lane3Horse))
+                {
+                    System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane3Horse.getName());
+                }
+                else if (raceWonBy(lane2Horse) && raceWonBy(lane3Horse))
+                {
+                    System.out.println("And the winner is: " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                }
+                else
+                {
+                    System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                }
             }
             else if ( lane1Horse.hasFallen() &&  lane2Horse.hasFallen() && lane3Horse.hasFallen())
             {

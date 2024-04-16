@@ -87,6 +87,11 @@ public class Race
             {
                 finished = true;
             }
+            else if ( lane1Horse.hasFallen() &&  lane2Horse.hasFallen() && lane3Horse.hasFallen())
+            {
+                finished = true;
+                System.out.println("All 3 horses have fallen : No winner");
+            }
            
             //wait for 100 milliseconds
             try{ 

@@ -1,4 +1,4 @@
-class Test_RaceClass
+public class Test_RaceClass
 {    public static void main(String [] args)
 {
     System.out.println("RACE CLASS TEST");

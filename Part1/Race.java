@@ -120,9 +120,9 @@ public class Race
             //so if you double the confidence, the probability that it will fall is *2
             if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
             {
-                theHorse.fall();
                 double new_confidence2 = Math.floor((theHorse.getConfidence()-0.1)*100)/100;
                 theHorse.setConfidence(new_confidence2);
+                theHorse.fall();
             }
         }
     }
@@ -152,7 +152,7 @@ public class Race
      */
     private void printRace()
     {
-        System.out.print('\u000C');  //clear the terminal window
+        System.out.print('\033c');  //clear the terminal window
         
         multiplePrint('=',raceLength+3); //top edge of track
         System.out.println();

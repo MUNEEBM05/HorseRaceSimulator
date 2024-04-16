@@ -32,11 +32,13 @@ public class Horse
 
     //Other methods of class Horse
     public void fall()
+
     {
         this.fallen = true;
     }
 
     public double getConfidence()
+
     {
         return this.confidence;
     }

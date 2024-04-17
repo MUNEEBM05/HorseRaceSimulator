@@ -170,8 +170,7 @@ public class Race
     {
         if (theHorse.getDistanceTravelled() == raceLength)
         {
-            double new_confidence1 = Math.floor((theHorse.getConfidence()+0.1)*100)/100;
-            theHorse.setConfidence(new_confidence1);
+            
             return true;
         }
         else
@@ -219,6 +218,7 @@ public class Race
         //print a | for the beginning of the lane
         System.out.print('|');
         
+
         //print the spaces before the horse
         multiplePrint(' ',spacesBefore);
         
@@ -227,6 +227,12 @@ public class Race
         if(theHorse.hasFallen())
         {
             System.out.print('\u274C');
+        }
+        else if (theHorse.getDistanceTravelled() == raceLength)
+        {
+            double new_confidence1 = Math.floor((theHorse.getConfidence()+0.1)*100)/100;
+            theHorse.setConfidence(new_confidence1);
+            System.out.print(theHorse.getSymbol());
         }
         else
         {

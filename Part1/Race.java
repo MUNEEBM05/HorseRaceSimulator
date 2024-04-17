@@ -185,7 +185,7 @@ public class Race
      */
     private void printRace()
     {
-        System.out.print("\033c");  //clear the terminal window
+        System.out.print('\u000C');  //clear the terminal window
         
         multiplePrint('=',raceLength+3); //top edge of track
         System.out.println();
@@ -226,7 +226,7 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print("\b\u274C");
+            System.out.print("\u274C");
         }
         else
         {

@@ -88,27 +88,90 @@ public class Race
                 finished = true;
                 if (raceWonBy(lane1Horse))
                 {
-                    System.out.println("And the winner is: " + lane1Horse.getName());
+                    if (raceWonBy(lane2Horse))
+                    {
+                        if (raceWonBy(lane3Horse))
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                        else
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName());
+                        }
+                    }
+                    else if (raceWonBy(lane3Horse))
+                    {
+                        if (raceWonBy(lane2Horse))
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                        else
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("And the winner is: " + lane1Horse.getName());
+                    }
                 }
                 else if (raceWonBy(lane2Horse))
                 {
-                    System.out.println("And the winner is: " + lane2Horse.getName());
+                    if (raceWonBy(lane1Horse))
+                    {
+                        if (raceWonBy(lane3Horse))
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                        else
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName());
+                        }
+                    }
+                    else if (raceWonBy(lane3Horse))
+                    {
+                        if (raceWonBy(lane1Horse))
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                        else
+                        {
+                            System.out.println("And the winner is: " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("And the winner is: " + lane2Horse.getName());
+                    }
                 }
                 else if (raceWonBy(lane3Horse))
                 {
-                    System.out.println("And the winner is: " + lane3Horse.getName());
-                }
-                else if (raceWonBy(lane1Horse) && raceWonBy(lane2Horse))
-                {
-                    System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName());
-                }
-                else if (raceWonBy(lane1Horse) && raceWonBy(lane3Horse))
-                {
-                    System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane3Horse.getName());
-                }
-                else if (raceWonBy(lane2Horse) && raceWonBy(lane3Horse))
-                {
-                    System.out.println("And the winner is: " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                    if (raceWonBy(lane1Horse))
+                    {
+                        if (raceWonBy(lane2Horse))
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                        else
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                    }
+                    else if (raceWonBy(lane2Horse))
+                    {
+                        if (raceWonBy(lane1Horse))
+                        {
+                            System.out.println("And the winner is: " + lane1Horse.getName() + " and " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                        else
+                        {
+                            System.out.println("And the winner is: " + lane2Horse.getName() + " and " + lane3Horse.getName());
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("And the winner is: " + lane3Horse.getName());
+                    }
                 }
                 else
                 {
@@ -228,7 +291,7 @@ public class Race
         {
             System.out.print('\u274C');
         }
-        else if (theHorse.getDistanceTravelled() == raceLength)
+        else if (raceWonBy(theHorse))
         {
             double new_confidence1 = Math.floor((theHorse.getConfidence()+0.1)*100)/100;
             theHorse.setConfidence(new_confidence1);

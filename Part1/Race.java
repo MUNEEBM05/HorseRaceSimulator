@@ -226,7 +226,7 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print("\u274C");
+            System.out.print('\u274C');
         }
         else
         {

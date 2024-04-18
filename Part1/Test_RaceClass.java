@@ -4,7 +4,7 @@ public class Test_RaceClass
     {
         System.out.println("RACE CLASS TEST");
 
-        Race race_1 = new Race(5);
+        Race race_1 = new Race(10);
         Horse race_horse1 = new Horse('\u265E',"race_horse1", 0.8);
         Horse race_horse2 = new Horse('\u2658',"race_horse2", 0.8);
         Horse race_horse3 = new Horse('\u2655',"race_horse3", 0.8);
@@ -14,9 +14,6 @@ public class Test_RaceClass
 
 
         race_1.startRace();
-        System.out.println(race_horse1.getConfidence());
-        System.out.println(race_horse2.getConfidence());
-        System.out.println(race_horse3.getConfidence());
 
     }
 }

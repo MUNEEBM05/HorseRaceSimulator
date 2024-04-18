@@ -83,6 +83,7 @@ public class Race
             printRace();
             
             //if any of the three horses has won the race is finished
+            
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
                 finished = true;
@@ -216,11 +217,15 @@ public class Race
             //so if you double the confidence, the probability that it will fall is *2
             if (Math.random() < (0.1*theHorse.getConfidence()*theHorse.getConfidence()))
             {
-                double new_confidence2 = Math.floor((theHorse.getConfidence()-0.1)*100)/100;
-                theHorse.setConfidence(new_confidence2);
-                theHorse.fall();
+                if (!raceWonBy(theHorse))
+                {
+                    double new_confidence2 = Math.floor((theHorse.getConfidence()-0.1)*100)/100;
+                    theHorse.setConfidence(new_confidence2);
+                    theHorse.fall();
+                }
             }
         }
+        
     }
         
     /** 
@@ -231,7 +236,7 @@ public class Race
      */
     private boolean raceWonBy(Horse theHorse)
     {
-        if (theHorse.getDistanceTravelled() == raceLength)
+        if ((theHorse.getDistanceTravelled() == raceLength && theHorse.hasFallen() == true) || (theHorse.getDistanceTravelled() == raceLength))
         {
             
             return true;

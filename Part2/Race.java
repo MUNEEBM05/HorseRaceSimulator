@@ -1,6 +1,7 @@
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
-
+import java.time.Instant;
+import java.time.Duration;
 /**
  * A three-horse race, each horse running in its own lane
  * for a given distance
@@ -71,9 +72,11 @@ public class Race
         lane1Horse.goBackToStart();
         lane2Horse.goBackToStart();
         lane3Horse.goBackToStart();
-                      
+        Instant start = Instant.now();
+        
         while (!finished)
         {
+            
             //move each horse
             moveHorse(lane1Horse);
             moveHorse(lane2Horse);
@@ -190,6 +193,14 @@ public class Race
                 TimeUnit.MILLISECONDS.sleep(100);
             }catch(Exception e){}
         }
+        
+        Instant end = Instant.now();
+        Duration timeElapsed = Duration.between(start, end);
+        double time = (double) timeElapsed.toSeconds();
+        
+        SpeedCalc(lane1Horse, lane1Horse.getDistanceTravelled(), time);
+        SpeedCalc(lane2Horse, lane2Horse.getDistanceTravelled(), time);
+        SpeedCalc(lane3Horse, lane3Horse.getDistanceTravelled(), time);
     }
     
     /**
@@ -204,9 +215,10 @@ public class Race
         //if the horse has fallen it cannot move, 
         //so only run if it has not fallen
         
+        
         if  (!theHorse.hasFallen())
         {
-            //the probability that the horse will move forward depends on the confidence;
+                        //the probability that the horse will move forward depends on the confidence;
             if (Math.random() < theHorse.getConfidence())
             {
                theHorse.moveForward();
@@ -224,6 +236,7 @@ public class Race
                     theHorse.fall();
                 }
             }
+            
         }
         
     }
@@ -238,7 +251,6 @@ public class Race
     {
         if ((theHorse.getDistanceTravelled() == raceLength && theHorse.hasFallen() == true) || (theHorse.getDistanceTravelled() == raceLength))
         {
-            
             return true;
         }
         else
@@ -314,6 +326,11 @@ public class Race
         System.out.print('|' + theHorse.getName() + " (Current confidence " + theHorse.getConfidence() + ")");
     }
         
+    private void SpeedCalc(Horse theHorse, int distance, double time)
+    {
+        double newSpeed = Math.floor((distance / time)* 10.0) / 10.0;
+        theHorse.setSpeed(newSpeed);
+    }
     
     /***
      * print a character a given number of times.

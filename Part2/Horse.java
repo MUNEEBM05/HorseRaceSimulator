@@ -13,7 +13,7 @@ public class Horse
     int distance;
     boolean fallen;
     double confidence;
-
+    double speed;
 
     //Constructor of class Horse
     /**
@@ -26,8 +26,8 @@ public class Horse
         this.confidence = horseConfidence;
         this.distance = 0;
         this.fallen = false;
+        this.speed = 0;
     }
-
 
 
     //Other methods of class Horse
@@ -36,7 +36,12 @@ public class Horse
     {
         this.fallen = true;
     }
-
+    
+    public double getSpeed()
+    {
+        return this.speed;
+    }
+    
     public double getConfidence()
 
     {
@@ -83,5 +88,11 @@ public class Horse
     {
         this.symbol = newSymbol;
     }
-
+    
+    public void setSpeed(double newSpeed)
+    {
+        this.speed = newSpeed;
+    }
+    
+    
 }

@@ -11,7 +11,7 @@ import javax.swing.text.StyledDocument;
 
 public class LoginSystem implements ActionListener
 {
-    
+    private HashMap<String, Integer> users;
     
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
@@ -28,12 +28,16 @@ public class LoginSystem implements ActionListener
     
     LoginSystem()
     {
+        users = new HashMap<>();
+        reloadUsers();
+        
         Color Gold = new Color(199, 153, 12);
         
         userIDLabel.setBounds(50,100,75,25);
-        
+        userIDLabel.setForeground(Color.BLACK);
         
         SurnameIDLabel.setBounds(50,150,75,25);
+        SurnameIDLabel.setForeground(Color.BLACK);
         
         
         messageLabel.setBounds(125,50,250,35);
@@ -87,6 +91,8 @@ public class LoginSystem implements ActionListener
         
         Label.setBounds(130,250,300,25);
         Label.setVisible(false);
+        Label.setForeground(Color.BLACK);
+
         
         frame.add(surnameIDField);
         frame.add(SurnameIDLabel);
@@ -139,40 +145,23 @@ public class LoginSystem implements ActionListener
             String userID = userIDField.getText();
             String SurnameID = surnameIDField.getText();
             
-            try (BufferedReader reader = new BufferedReader(new FileReader("users.txt")))
+            if (users.containsKey(userID + " " + SurnameID))
             {
-                String line;
-                
-                while ((line = reader.readLine()) != null)
-                {
-                    String [] parts = line.split(",");
-                    if (parts[0].equals(userID) && parts[1].equals(SurnameID))
-                    {
-                        messageLabel.setForeground(Color.green);
-                        messageLabel.setText("Login successful");
-                        int tokenID = Integer.parseInt(parts[2]);
-                        frame.dispose();
-                        WellcomePage wellcomePage = new WellcomePage(userID, tokenID);
-                    }
-                    else
-                    {
-                        messageLabel.setForeground(Color.red);
-                        messageLabel.setText("Login failed");
-                        Label.setVisible(true);
-                        YESButton.setVisible(true);
-                        NOButton.setVisible(true);
-                        
-                        
-                    }
-                    
-                }
+                messageLabel.setForeground(Color.green);
+                messageLabel.setText("Login successful");
+                int tokenID = users.get(userID + " " + SurnameID);
+                frame.dispose();
+                WellcomePage wellcomePage = new WellcomePage(userID, SurnameID,tokenID);
             }
-            catch(IOException f)
+            else
             {
                 messageLabel.setForeground(Color.red);
-                messageLabel.setText("error");
+                messageLabel.setText("Login failed");
+                Label.setVisible(true);
+                YESButton.setVisible(true);
+                NOButton.setVisible(true);
             }
-        }
+        }    
         
         if (e.getSource() == NOButton)
         {
@@ -187,4 +176,30 @@ public class LoginSystem implements ActionListener
             CreateLogin maker = new CreateLogin();
         }
     }
+    
+    public void reloadUsers()
+    {
+        // clear any existing user data
+        users.clear();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt")))
+        {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                String name = parts[0];
+                String surname = parts[1];
+                int tokens = Integer.parseInt(parts[2]);
+                users.put(name + " " + surname, tokens);
+            }
+        } 
+        catch (IOException e) 
+        {
+            messageLabel.setForeground(Color.red);
+            messageLabel.setText("Error reading users.txt");
+        }
+    }
+    
+    
+    
 }

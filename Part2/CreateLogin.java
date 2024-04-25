@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -30,7 +28,7 @@ public class CreateLogin implements ActionListener
         userIDLabel.setBounds(50,100,75,25);
         SurnameIDLabel.setBounds(50,150,75,25);
         
-        messageLabel.setBounds(125,250,250,35);
+        messageLabel.setBounds(50,300,250,35);
         messageLabel.setFont(new Font( "Verana",Font.BOLD,25));
         
         Label.setBounds(125,50,250,35);
@@ -108,36 +106,61 @@ public class CreateLogin implements ActionListener
             String SurnameID = surnameIDField.getText();
             int tokenDefault = 100;
             
-            try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"));
-            PrintWriter p = new PrintWriter(new FileWriter("users.txt",true)))
+            if (userID.isEmpty() || SurnameID.isEmpty())
             {
-                String line;
-                
-                while ((line = reader.readLine()) != null)
+                messageLabel.setForeground(Color.red);
+                messageLabel.setText("You must enter all details");
+            }
+            else
+            {
+                try (BufferedReader reader = new BufferedReader(new FileReader("users.txt")))
                 {
-                    String [] parts = line.split(",");
-                    if (parts[0].equals(userID) && parts[1].equals(SurnameID))
+                    String line;
+                    boolean exists = false;
+                    while ((line = reader.readLine()) != null)
+                    {
+                        String [] parts = line.split(",");
+                        if (parts[0].equals(userID) && parts[1].equals(SurnameID))
+                        {
+                            exists = true;
+                            break;
+                        }
+                        
+                    }
+                    if (exists)
                     {
                         messageLabel.setForeground(Color.red);
-                        messageLabel.setText("Login already Exists");
+                        messageLabel.setText("User already exists");    
                     }
                     else
                     {
                         messageLabel.setForeground(Color.green);
                         messageLabel.setText("Login Successful");
-                        p.println(userID + "," + SurnameID + "," + tokenDefault);
-                        frame.dispose();
-                        LoginSystem log = new LoginSystem();
                         
+                        try (PrintWriter p = new PrintWriter(new FileWriter("users.txt", true)))
+                        {
+                            p.println(userID + "," + SurnameID + "," + tokenDefault);
+                        }
+                        catch(IOException g)
+                        {
+                            messageLabel.setForeground(Color.red);
+                            messageLabel.setText("error");
+                        }
+                
+                        LoginSystem log = new LoginSystem();
+                        log.reloadUsers(); // reload user data in LoginSystem
+                        frame.dispose();
                     }
-                    
+                }
+                catch(IOException f)
+                {
+                    messageLabel.setForeground(Color.red);
+                    messageLabel.setText("error");
                 }
             }
-            catch(IOException f)
-            {
-                messageLabel.setForeground(Color.red);
-                messageLabel.setText("error");
-            }
+            
+            
+                
         }
     }
 }

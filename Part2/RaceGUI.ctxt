@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=RaceGUI
+comment1.params=userID\ SurnameID\ tokenID
+comment1.target=RaceGUI(java.lang.String,\ java.lang.String,\ int)
+comment2.params=frame\ imagePath
+comment2.target=void\ addBackground(javax.swing.JFrame,\ java.lang.String)
+comment3.params=e
+comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment4.params=comboBox
+comment4.target=java.lang.String\ getHorseSymbol(javax.swing.JComboBox)
+comment5.params=
+comment5.target=void\ reloadUsers()
+numComments=6

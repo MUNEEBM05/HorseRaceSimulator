@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Race
+comment1.params=distance\ display
+comment1.target=Race(int,\ javax.swing.JTextArea)
+comment10.params=chars\ times
+comment10.target=void\ multiplePrint(java.lang.String,\ int)
+comment2.params=theHorse\ laneNumber
+comment2.target=void\ addHorse(Horse,\ int)
+comment3.params=
+comment3.target=void\ startRace()
+comment4.params=theHorse
+comment4.target=void\ moveHorse(Horse)
+comment5.params=theHorse
+comment5.target=boolean\ raceWonBy(Horse)
+comment6.params=
+comment6.target=void\ printRace()
+comment7.params=theHorse
+comment7.target=void\ printLane(Horse)
+comment8.params=theHorse\ distance\ time
+comment8.target=void\ SpeedCalc(Horse,\ int,\ double)
+comment9.params=theHorse
+comment9.target=void\ UpdateFile(Horse)
+numComments=11

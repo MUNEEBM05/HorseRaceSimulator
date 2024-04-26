@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=CreateHorse
+comment1.params=userID\ SurnameID\ tokenID
+comment1.target=CreateHorse(java.lang.String,\ java.lang.String,\ int)
+comment2.params=frame\ imagePath
+comment2.target=void\ addBackground(javax.swing.JFrame,\ java.lang.String)
+comment3.params=comboBox
+comment3.target=java.lang.String\ getHorseSymbol(javax.swing.JComboBox)
+comment4.params=comboBox
+comment4.target=java.lang.Double\ getHorseRate(javax.swing.JComboBox)
+comment5.params=e
+comment5.target=void\ actionPerformed(java.awt.event.ActionEvent)
+numComments=6

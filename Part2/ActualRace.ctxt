@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=ActualRace
+comment1.params=length\ setup\ horse1\ horse2\ horse3\ betHorse\ bet\ current\ userID\ SurnameID
+comment1.target=ActualRace(int,\ java.lang.String,\ Horse,\ Horse,\ Horse,\ Horse,\ int,\ int,\ java.lang.String,\ java.lang.String)
+comment2.params=horse1\ horse2\ horse3\ betHorse\ bet\ current
+comment2.target=int\ UpdateToken(Horse,\ Horse,\ Horse,\ Horse,\ int,\ int)
+comment3.params=userID\ Surname\ token
+comment3.target=void\ UpdateFile(java.lang.String,\ java.lang.String,\ int)
+comment4.params=selected\ text
+comment4.target=void\ RaceTrackSetUp(java.lang.String,\ javax.swing.JTextArea)
+numComments=5

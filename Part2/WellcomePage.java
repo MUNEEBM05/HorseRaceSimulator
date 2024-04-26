@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+//The easiest class of the several used in the programme
+//This page gives the rules and has a simple button that asks if you understands
+//The button is the only way to the next page which is the selection of the race options
 public class WellcomePage implements ActionListener
 {
     String Surname;
@@ -93,9 +96,6 @@ public class WellcomePage implements ActionListener
         YESButton.setBorderPainted(true);
         YESButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         
-        
-        
-        
         frame.add(wellcomeLabel);
         frame.add(tokencount);
         frame.add(rule1);
@@ -119,6 +119,7 @@ public class WellcomePage implements ActionListener
     
     public static void addBackground(JFrame frame, String imagePath)
     {
+        //Checks the JFrame and gives us the image background for it
         Image img = Toolkit.getDefaultToolkit().getImage(imagePath);
         frame.getContentPane().setLayout(new BorderLayout());
         JLabel background = new JLabel(new ImageIcon(img));
@@ -128,6 +129,9 @@ public class WellcomePage implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    //Override methods used for the button
+    //As this page is a intermediate page for show we only have one button
+    //This is so that the user understands the rules 
     @Override
     public void actionPerformed(ActionEvent e)
     {

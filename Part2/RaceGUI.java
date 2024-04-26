@@ -9,6 +9,13 @@ import javax.swing.border.Border;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+//The main race customisation page
+//3 rows on 3 horse customisation options
+//After you enter the horse name and fur type  it shows the features of that horse below
+//The features include confidence rate, speed , number of wins and loses
+//The other features:
+//Are race options (cutomisations), track length
+//Are how much you want to bet, horse you bet on
 public class RaceGUI implements ActionListener
 {
     private HashMap<String, Double> horseslist;
@@ -420,6 +427,7 @@ public class RaceGUI implements ActionListener
     
     public static void addBackground(JFrame frame, String imagePath)
     {
+        //Checks the JFrame and gives us the image background for it
         Image img = Toolkit.getDefaultToolkit().getImage(imagePath);
         frame.getContentPane().setLayout(new BorderLayout());
         JLabel background = new JLabel(new ImageIcon(img));
@@ -429,10 +437,15 @@ public class RaceGUI implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    //The override methods for all the buttons
+    //The buttons are save1,save2,save3 and StartRace
+    //Thes buttons are to make sure the horse parameters are correct
+    //All 3 save1,save2,save3 butttons do the same thing but for different Horses
+    //Startrace makes sure the horse1,horse2,horse3 fields are full before showing race
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        
+        //Clears all the previously entered fields
         if (e.getSource() == resetButton)
         {
             trackchoice.setSelectedIndex(0);
@@ -455,19 +468,25 @@ public class RaceGUI implements ActionListener
             speed3.setText("");
         }
         
+        //save1 is for horse1 where it checks the entered horse data
+        //if the data is incorrect it asks if they wnat to enter a new horse
+        //This takes you to the CreateHorse page
         if (e.getSource() == save1)
         {
+            //Varibales that will be used later to create horse object
             String name = NameField1.getText();
             String symbol = getHorseSymbol(SymbolField1);
             String ratetext = "";
             String speedtext = "";
             String wintext = "";
             String losetext = "";
-            if (name.isEmpty())
+            if (name.isEmpty()) //Checks if the NameField1 box is empty
             {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("You must enter a name");
             }
+            //Checks the hashmap of horses to see if there is a confidence rate
+            //This branch is used to find the other qualities of the horse
             else if (horseslist.containsKey(name + " " + symbol))
             {
                 messageLabel.setForeground(Color.green);
@@ -475,6 +494,7 @@ public class RaceGUI implements ActionListener
                 double confidence = horseslist.get(name + " " + symbol);
                 NameField1.setEditable(false);
                 SymbolField1.setEnabled(false);
+                //Checks the horseslist text file for the entered horse
                 try (BufferedReader reader = new BufferedReader(new FileReader("horseslist.txt")))
                 {
                     String line;
@@ -482,6 +502,8 @@ public class RaceGUI implements ActionListener
                         String[] parts = line.split(",");
                         if (parts[0].equals(name) && parts[1].equals(symbol))
                         {
+                            //Finds the other details for that horse
+                            //Confidence rate, speed, number of wins and loses
                             ratetext = parts[2];
                             speedtext = parts[3];
                             wintext = parts[4];
@@ -494,6 +516,7 @@ public class RaceGUI implements ActionListener
                     messageLabel.setForeground(Color.red);
                     messageLabel.setText("Horse 1 Login failed");
                 }
+                //To be more tidy to clear any unwanted buttons
                 Label.setVisible(false);
                 YESButton.setVisible(false);
                 NOButton.setVisible(false);
@@ -501,6 +524,7 @@ public class RaceGUI implements ActionListener
             }
             else
             {
+                //Backup message to see if parameters are not met at all
                 messageLabel.setForeground(Color.red);
                 messageLabel.setText("Login failed");
                 Label.setVisible(true);
@@ -508,25 +532,33 @@ public class RaceGUI implements ActionListener
                 NOButton.setVisible(true);
             }
             
+            //Gives the information that was taken form the  text file to the labels
+            //The labesl cannot be edited so this shows you the horse statistics that you chose
             rate1.setText(ratetext);
             speed1.setText(speedtext);
             win1.setText(wintext);
             lose1.setText(losetext);
         }
         
+        //save2 is for horse2 where it checks the entered horse data
+        //if the data is incorrect it asks if they wnat to enter a new horse
+        //This takes you to the CreateHorse page
         if (e.getSource() == save2)
         {
+            //Varibales that will be used later to create horse object
             String name = NameField2.getText();
             String symbol = getHorseSymbol(SymbolField2);
             String ratetext = "";
             String speedtext = "";
             String wintext = "";
             String losetext = "";
-            if (name.isEmpty())
+            if (name.isEmpty()) //Checks if the NameField2 box is empty
             {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("You must enter a name");
             }
+            //Checks the hashmap of horses to see if there is a confidence rate
+            //This branch is used to find the other qualities of the hors
             else if (horseslist.containsKey(name + " " + symbol))
             {
                 messageLabel.setForeground(Color.green);
@@ -534,6 +566,7 @@ public class RaceGUI implements ActionListener
                 double confidence = horseslist.get(name + " " + symbol);
                 NameField2.setEditable(false);
                 SymbolField2.setEnabled(false);
+                //Checks the horseslist text file for the entered horse
                 try (BufferedReader reader = new BufferedReader(new FileReader("horseslist.txt")))
                 {
                     String line;
@@ -541,6 +574,8 @@ public class RaceGUI implements ActionListener
                         String[] parts = line.split(",");
                         if (parts[0].equals(name) && parts[1].equals(symbol))
                         {
+                            //Finds the other details for that horse
+                            //Confidence rate, speed, number of wins and loses
                             ratetext = parts[2];
                             speedtext = parts[3];
                             wintext = parts[4];
@@ -553,6 +588,7 @@ public class RaceGUI implements ActionListener
                     messageLabel.setForeground(Color.red);
                     messageLabel.setText("Horse 2 Login failed");
                 }
+                //To be more tidy to clear any unwanted buttons
                 Label.setVisible(false);
                 YESButton.setVisible(false);
                 NOButton.setVisible(false);
@@ -560,33 +596,40 @@ public class RaceGUI implements ActionListener
             }
             else
             {
+                //Backup message to see if parameters are not met at all
                 messageLabel.setForeground(Color.red);
                 messageLabel.setText("Login failed");
                 Label.setVisible(true);
                 YESButton.setVisible(true);
                 NOButton.setVisible(true);
             }
-            
+            //Gives the information that was taken form the  text file to the labels
+            //The labesl cannot be edited so this shows you the horse statistics that you chose
             rate2.setText(ratetext);
             speed2.setText(speedtext);
             win2.setText(wintext);
             lose2.setText(losetext);
         }
         
-        
+        //save3 is for horse3 where it checks the entered horse data
+        //if the data is incorrect it asks if they wnat to enter a new horse
+        //This takes you to the CreateHorse page
         if (e.getSource() == save3)
         {
+            //Varibales that will be used later to create horse object
             String name = NameField3.getText();
             String symbol = getHorseSymbol(SymbolField3);
             String ratetext = "";
             String speedtext = "";
             String wintext = "";
             String losetext = "";
-            if (name.isEmpty())
+            if (name.isEmpty()) //Checks if the NameField3 box is empty
             {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("You must enter a name");
             }
+            //Checks the hashmap of horses to see if there is a confidence rate
+            //This branch is used to find the other qualities of the hors
             else if (horseslist.containsKey(name + " " + symbol))
             {
                 messageLabel.setForeground(Color.green);
@@ -594,6 +637,7 @@ public class RaceGUI implements ActionListener
                 double confidence = horseslist.get(name + " " + symbol);
                 NameField3.setEditable(false);
                 SymbolField3.setEnabled(false);
+                //Checks the horseslist text file for the entered horse
                 try (BufferedReader reader = new BufferedReader(new FileReader("horseslist.txt")))
                 {
                     String line;
@@ -601,6 +645,8 @@ public class RaceGUI implements ActionListener
                         String[] parts = line.split(",");
                         if (parts[0].equals(name) && parts[1].equals(symbol))
                         {
+                            //Finds the other details for that horse
+                            //Confidence rate, speed, number of wins and loses
                             ratetext = parts[2];
                             speedtext = parts[3];
                             wintext = parts[4];
@@ -613,6 +659,7 @@ public class RaceGUI implements ActionListener
                     messageLabel.setForeground(Color.red);
                     messageLabel.setText("Horse 3 Login failed");
                 }
+                //To be more tidy to clear any unwanted buttons
                 Label.setVisible(false);
                 YESButton.setVisible(false);
                 NOButton.setVisible(false);
@@ -620,41 +667,50 @@ public class RaceGUI implements ActionListener
             }
             else
             {
+                //Backup message to see if parameters are not met at all
                 messageLabel.setForeground(Color.red);
                 messageLabel.setText("Login failed");
                 Label.setVisible(true);
                 YESButton.setVisible(true);
                 NOButton.setVisible(true);
             }
-            
+            //Gives the information that was taken form the  text file to the labels
+            //The labesl cannot be edited so this shows you the horse statistics that you chose
             rate3.setText(ratetext);
             speed3.setText(speedtext);
             win3.setText(wintext);
             lose3.setText(losetext);
         }
         
+        //The key buttons to check if you want to enter a new Horse
+        //If press no then the buttons go away
         if (e.getSource() == NOButton)
         {
             Label.setVisible(false);
             YESButton.setVisible(false);
             NOButton.setVisible(false);
         }
-                    
+        
+        //If press yes they take you to a new page called CreateHorse
         if (e.getSource() == YESButton)
         {
             frame.dispose();
             CreateHorse maker = new CreateHorse(name, Surname, token);
         }
         
+        //The main button that starts the actual race
         if (e.getSource() == startRace)
         {
+            //checks if all the horse data has been entered
             if (NameField1.isEditable() || NameField2.isEditable() || NameField3.isEditable())
             {
                 messageLabel.setForeground(Color.red);
                 messageLabel.setText("You need to fill all the Horse fields");
             }
+            //If all the horse data has been entered it moves on
             else
             {
+                //Creates the 3 horses useig the data in the JLabels
                 String horsename1 = NameField1.getText();
                 char [] SYMBOLS1 = getHorseSymbol(SymbolField1).toCharArray();
                 char horsesymbol1 = SYMBOLS1[0];
@@ -679,6 +735,7 @@ public class RaceGUI implements ActionListener
                 int horsewin3 = Integer.parseInt(win3.getText());
                 int horseloss3 = Integer.parseInt(lose3.getText());
                 
+                //Creates the horses horse1,horse2,horse3
                 Horse horse1 = new Horse(horsesymbol1,horsename1,horseconfidence1);
                 horse1.setSpeed(horsespeed1);
                 horse1.SetWin(horsewin1);
@@ -694,6 +751,7 @@ public class RaceGUI implements ActionListener
                 horse1.SetWin(horsewin3);
                 horse1.SetLoss(horsewin3);
                 
+                //Extracts the other data such as betting money, betting horse, track length and choice
                 int l = Racelengthchoice.getSelectedIndex();
                 int length = lengths[0];
                 int s = trackchoice.getSelectedIndex();
@@ -701,7 +759,10 @@ public class RaceGUI implements ActionListener
                 int b = BetField.getSelectedIndex();
                 int bet = betamount[b];
                 
+                //Initially sets bettig horse to null
                 Horse betHorse = null;
+                
+                //Betting horse is set through the if statement
                 if (HorseChoosefield.getSelectedIndex() == 0)
                 {
                     betHorse = horse1;
@@ -715,12 +776,15 @@ public class RaceGUI implements ActionListener
                     betHorse = horse3;
                 }
                 
+                //Follows on to a new class called Actualrace which sets up the race on another JFrame
                 ActualRace r = new ActualRace(length, setup, horse1, horse2, horse3, betHorse, bet,token,name,Surname);
             }
         }
         
     }
     
+    //This method returns the symbols for a black and white horse as a string
+    //It is as a string but converted into a char later when sent through
     String getHorseSymbol(JComboBox<String> comboBox)
     {
         String selected = (String) comboBox.getSelectedItem();
@@ -737,6 +801,8 @@ public class RaceGUI implements ActionListener
         return choice;
     }
     
+    //This is done so any newly entered accounts from CreateHorse class
+    //Automatically updates the hashmap system when recalled at beginning
     public void reloadUsers()
     {
         // clear any existing user data

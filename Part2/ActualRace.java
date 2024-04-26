@@ -14,6 +14,8 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+//This method shows the actual race on another JFrame with all the cutomisations we chose
+//uses the newly updated Race class that was changed to show the race on a JTextArea
 public class ActualRace
 {
     Color Gold = new Color(199, 153, 12);
@@ -32,13 +34,15 @@ public class ActualRace
         this.name = userID;
         
         
-        
+        //The main actual part that showcases the race on the JFrame
+        //We use Swingutilities to account for the Thread before
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             JTextArea textArea = new JTextArea(7, 60);
             textArea.setFont(new Font("Monospaced", Font.BOLD, 15));
             
+            //The track customisation option being used
             RaceTrackSetUp(setup,textArea);
             
             JScrollPane scrollPane = new JScrollPane(textArea);
@@ -62,9 +66,12 @@ public class ActualRace
             
         });
         
+        
         this.token = UpdateToken(horse1, horse2, horse3, betHorse, bet,current);
+        //updates the files for the users money
         UpdateFile(this.name, this.Surname, this.token);
         
+        //A small timer before moving back to the RaceGUI class which is the cutomiser
         try
         {
             Thread.sleep(1000); //pause for 1 second
@@ -83,7 +90,9 @@ public class ActualRace
     
     
     
-    
+    //Returns the new number of tokens remaining
+    //uses the amount betted on by the user
+    //If the user won they gain the money and lose the money if lost
     int UpdateToken(Horse horse1, Horse horse2, Horse horse3, Horse betHorse, int bet,int current)
     {
         Horse [] checker = {horse1, horse2, horse3};
@@ -108,6 +117,8 @@ public class ActualRace
         return current;
     }
     
+    //Now goes to the users.txt file and updates the users details
+    //This is os that if the program is run again the details are saved
     public void UpdateFile(String userID, String Surname, int token)
     {
         
@@ -144,7 +155,8 @@ public class ActualRace
         }
     }
     
-    
+    //The options for the track customisation
+    //This specifically alters the JTextAre to the colourscheme chosen by us
     public void RaceTrackSetUp(String selected, JTextArea text)
     {
         if (selected.equals("Gold and Black"))

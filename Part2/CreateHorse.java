@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+//This page is only accessed when you wnat to enter a new horse
+//It also makes sure no existing horses are entered
+//Asks for name, fur type and confidence rate you want to set
 public class CreateHorse implements ActionListener
 {
     String CSurname;
@@ -103,6 +106,7 @@ public class CreateHorse implements ActionListener
     
     public static void addBackground(JFrame frame, String imagePath)
     {
+        //Checks the JFrame and gives us the image background for it
         Image img = Toolkit.getDefaultToolkit().getImage(imagePath);
         frame.getContentPane().setLayout(new BorderLayout());
         JLabel background = new JLabel(new ImageIcon(img));
@@ -112,6 +116,8 @@ public class CreateHorse implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    //This method returns the symbols for a black and white horse as a string
+    //It is as a string but converted into a char later when sent through
     String getHorseSymbol(JComboBox<String> comboBox)
     {
         String selected = (String) comboBox.getSelectedItem();
@@ -128,6 +134,8 @@ public class CreateHorse implements ActionListener
         return choice;
     }
     
+    //This collects the actual chosen confidence rate the horse is started off with
+    //Math.Floor is used to double check if it is to 1dp like wanted
     Double getHorseRate(JComboBox<Double> comboBox)
     {
         double selectedRate = ((Double) comboBox.getSelectedItem()).doubleValue();
@@ -135,10 +143,11 @@ public class CreateHorse implements ActionListener
         return actual;
     }
     
-    
+    //Override methods for the buttons which are reset and login
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        //Clears the previously typed output
         if (e.getSource() == resetButton)
         {
             NameField.setText("");
@@ -147,6 +156,8 @@ public class CreateHorse implements ActionListener
             
         }
         
+        //Collects all the user data that is correct and then checks in the text file
+        //Similarly to the CreateLogin login button
         if (e.getSource() == loginButton)
         {
             String name = NameField.getText();
@@ -154,6 +165,7 @@ public class CreateHorse implements ActionListener
             Double rate = getHorseRate(ConfidenceField);
             String rateString = String.valueOf(rate);
             
+            //Makes sure the fields are not empty as empty fields are not allowed
             if (name.isEmpty() || symbol.isEmpty())
             {
                 messageLabel.setForeground(Color.red);
@@ -163,12 +175,13 @@ public class CreateHorse implements ActionListener
             {
                 try (BufferedReader reader = new BufferedReader(new FileReader("horseslist.txt")))
                 {
+                    //This is to check that every name is unique and not already present
                     String line;
                     boolean exists = false;
                     while ((line = reader.readLine()) != null)
                     {
                         String [] parts = line.split(",");
-                        if (parts[0].equals(name))
+                        if (parts[0].equals(name)) //Only checks name
                         {
                             exists = true;
                             break;
@@ -185,6 +198,7 @@ public class CreateHorse implements ActionListener
                         messageLabel.setForeground(Color.green);
                         messageLabel.setText("Login Successful");
                         
+                        //Adding the new names to the system with default token count as 100
                         try (PrintWriter p = new PrintWriter(new FileWriter("horseslist.txt", true)))
                         {
                             p.println(name + "," + symbol + "," + rate + ",0,0,0");
@@ -194,9 +208,10 @@ public class CreateHorse implements ActionListener
                             messageLabel.setForeground(Color.red);
                             messageLabel.setText("error");
                         }
-                
+                        
+                        //Takes you back to RaceGUI for verification of name 
                         RaceGUI log = new RaceGUI(Cname, CSurname, Ctoken);
-                        log.reloadUsers(); // reload user data in LoginSystem
+                        log.reloadUsers(); // reload user data in RaceGUI
                         frame.dispose();
                     }
                 }

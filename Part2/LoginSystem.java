@@ -9,6 +9,17 @@ import javax.swing.border.Border;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+//This class is repsonsibile for the beginning of the set up for the betting system
+//For betting to be possible this login system was made so your name is recorded
+//If its your first time you start at 100 tokens (fake currency)
+//All user data is saved on a text file called users.txt
+//If you gave incorrect data aor no data you are asked to create a account
+//Creating a account takes you to the CreateLogin class
+//Regardless if the account was made in the CreateLogin page you will be taken back here
+//This is to confirm any final details
+
+
+
 public class LoginSystem implements ActionListener
 {
     private HashMap<String, Integer> users;
@@ -120,6 +131,7 @@ public class LoginSystem implements ActionListener
     
     public static void addBackground(JFrame frame, String imagePath)
     {
+        //Checks the JFrame and gives us the image background for it
         Image img = Toolkit.getDefaultToolkit().getImage(imagePath);
         frame.getContentPane().setLayout(new BorderLayout());
         JLabel background = new JLabel(new ImageIcon(img));
@@ -129,10 +141,11 @@ public class LoginSystem implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    
+    //The override fot all the buttons
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        //If pressed everything clears so you can enter details again
         if (e.getSource() == resetButton)
         {
             userIDField.setText("");
@@ -140,11 +153,13 @@ public class LoginSystem implements ActionListener
             
         }
         
+        //Signs you in to the wellcome page if it follows all the details
         if (e.getSource() == loginButton)
         {
             String userID = userIDField.getText();
             String SurnameID = surnameIDField.getText();
             
+            //Checks the hashmap of the name,surname and token number 
             if (users.containsKey(userID + " " + SurnameID))
             {
                 messageLabel.setForeground(Color.green);
@@ -163,13 +178,16 @@ public class LoginSystem implements ActionListener
             }
         }    
         
+        //The key buttons to check if you want to make a new account
+        //If press no then the buttons go
         if (e.getSource() == NOButton)
         {
             Label.setVisible(false);
             YESButton.setVisible(false);
             NOButton.setVisible(false);
         }
-                    
+        
+        //If press yes they take you to a new page called CreateLogin
         if (e.getSource() == YESButton)
         {
             frame.dispose();
@@ -177,6 +195,8 @@ public class LoginSystem implements ActionListener
         }
     }
     
+    //This is done so any newly entered accounts from CreateLogin class
+    //Automatically updates the hashmap system when recalled at beginning
     public void reloadUsers()
     {
         // clear any existing user data

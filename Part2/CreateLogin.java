@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+//You are only taken to this page if you have no login already made
+//It also makes sure no existing accounts are entered
+//Utilises the users.txt file
 public class CreateLogin implements ActionListener
 {
     
@@ -80,6 +84,7 @@ public class CreateLogin implements ActionListener
     
     public static void addBackground(JFrame frame, String imagePath)
     {
+        //Checks the JFrame and gives us the image background for it
         Image img = Toolkit.getDefaultToolkit().getImage(imagePath);
         frame.getContentPane().setLayout(new BorderLayout());
         JLabel background = new JLabel(new ImageIcon(img));
@@ -90,9 +95,12 @@ public class CreateLogin implements ActionListener
     }
     
     
+    //The override method for the buttons
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        
+        //If pressed everything clears so you can enter details again
         if (e.getSource() == resetButton)
         {
             userIDField.setText("");
@@ -100,12 +108,14 @@ public class CreateLogin implements ActionListener
             
         }
         
+        //Creates your account and takes you bak to LoginSystem page for verification
         if (e.getSource() == loginButton)
         {
             String userID = userIDField.getText();
             String SurnameID = surnameIDField.getText();
             int tokenDefault = 100;
             
+            //Makes sure the fields are not empty as empty fields are not allowed
             if (userID.isEmpty() || SurnameID.isEmpty())
             {
                 messageLabel.setForeground(Color.red);
@@ -120,6 +130,7 @@ public class CreateLogin implements ActionListener
                     while ((line = reader.readLine()) != null)
                     {
                         String [] parts = line.split(",");
+                        //This is to check that every name is unique and not already present
                         if (parts[0].equals(userID) && parts[1].equals(SurnameID))
                         {
                             exists = true;
@@ -137,6 +148,7 @@ public class CreateLogin implements ActionListener
                         messageLabel.setForeground(Color.green);
                         messageLabel.setText("Login Successful");
                         
+                        //Adding the new names to the system with default token count as 100
                         try (PrintWriter p = new PrintWriter(new FileWriter("users.txt", true)))
                         {
                             p.println(userID + "," + SurnameID + "," + tokenDefault);
@@ -146,7 +158,8 @@ public class CreateLogin implements ActionListener
                             messageLabel.setForeground(Color.red);
                             messageLabel.setText("error");
                         }
-                
+                        
+                        //Takes you back to LoginSystem for verification of name 
                         LoginSystem log = new LoginSystem();
                         log.reloadUsers(); // reload user data in LoginSystem
                         frame.dispose();

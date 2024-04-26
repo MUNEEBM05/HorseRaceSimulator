@@ -13,9 +13,6 @@ public class Horse
     int distance;
     boolean fallen;
     double confidence;
-<<<<<<< HEAD
-
-=======
     
     //Newly added for Part2
     double speed;
@@ -23,7 +20,7 @@ public class Horse
     int win;
     char OGSymbol;
     boolean didwin;
->>>>>>> gui-development
+
 
     //Constructor of class Horse
     /**
@@ -36,13 +33,7 @@ public class Horse
         this.confidence = horseConfidence;
         this.distance = 0;
         this.fallen = false;
-<<<<<<< HEAD
-    }
 
-
-
-=======
-        
         //Newly added for Part2
         this.speed = 0;
         this.win = 0;
@@ -51,17 +42,13 @@ public class Horse
         didwin = false;
     }
 
-
->>>>>>> gui-development
     //Other methods of class Horse
     public void fall()
 
     {
         this.fallen = true;
     }
-<<<<<<< HEAD
 
-=======
     
     //Newly added for Part2
     //Gets the speed of the horse
@@ -92,7 +79,6 @@ public class Horse
         return this.loss;
     }
     
->>>>>>> gui-development
     public double getConfidence()
 
     {
@@ -139,9 +125,6 @@ public class Horse
     {
         this.symbol = newSymbol;
     }
-<<<<<<< HEAD
-
-=======
     
     //Newly added for Part2
     //Changes the speed depending on how the horse behaves in the next race
@@ -187,5 +170,4 @@ public class Horse
     {
         return this.didwin;
     }
->>>>>>> gui-development
 }

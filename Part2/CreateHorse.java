@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 
 public class CreateHorse implements ActionListener
 {
+    String CSurname;
+    String Cname;
+    int Ctoken;
     
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
@@ -27,8 +30,13 @@ public class CreateHorse implements ActionListener
     JLabel Label = new JLabel("You must add the categories for your horse");
     
     
-    CreateHorse()
+    CreateHorse(String userID, String SurnameID,int tokenID)
     {
+        CSurname = SurnameID;
+        Cname = userID;
+        Ctoken = tokenID;
+        
+        
         Color Gold = new Color(199, 153, 12);
         
         NameLabel.setBounds(50,100,75,25);
@@ -110,11 +118,11 @@ public class CreateHorse implements ActionListener
         String choice = "";
         if (selected.equals("Black fur"))
         {
-            choice =  "?";
+            choice =  "B";
         }
         else if (selected.equals("White fur"))
         {
-            choice = "?";
+            choice = "W";
         }
         
         return choice;
@@ -160,7 +168,7 @@ public class CreateHorse implements ActionListener
                     while ((line = reader.readLine()) != null)
                     {
                         String [] parts = line.split(",");
-                        if (parts[0].equals(name) && parts[1].equals(symbol))
+                        if (parts[0].equals(name))
                         {
                             exists = true;
                             break;
@@ -187,7 +195,7 @@ public class CreateHorse implements ActionListener
                             messageLabel.setText("error");
                         }
                 
-                        LoginHorse log = new LoginHorse();
+                        RaceGUI log = new RaceGUI(Cname, CSurname, Ctoken);
                         log.reloadUsers(); // reload user data in LoginSystem
                         frame.dispose();
                     }

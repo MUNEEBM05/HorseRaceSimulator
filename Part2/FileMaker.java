@@ -17,9 +17,9 @@ public class FileMaker
         
         try (PrintWriter q = new PrintWriter(new FileWriter("horseslist.txt")))
         {
-            q.println("Dave,B,0.8,4.5,2,1");
-            q.println("Bob,W,0.4,7.5,5,0");
-            q.println("Hero,B??,0.8,3.2,0,0");
+            q.println("Ava,B,0.8,4.5,2,1");
+            q.println("Bolton,W,0.4,7.5,5,0");
+            q.println("Coward,B,0.8,3.2,0,0");
         }
         catch(IOException e){}
     }
